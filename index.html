@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Feliz Año Nuevo, Mi Amor</title>
+    <style>
+        body {
+            background-color: #000;
+            color: white;
+            font-size: 2em;
+            text-align: center;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            font-family: 'Dancing Script', cursive;
+        }
+
+        @import url('https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap');
+
+        h1 {
+            margin-bottom: 20px;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+            font-size: 2.5em;
+        }
+
+        .mensaje-extra {
+            font-size: 1.2em;
+            margin-top: 20px;
+            text-shadow: 0 0 5px rgba(255, 255, 255, 0.3);
+        }
+
+        .te-amo {
+            font-size: 1.5em;
+            margin-top: 20px;
+            text-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
+            color: #FF69B4;
+            animation: pulsacion 1.5s linear infinite alternate;
+        }
+
+        @keyframes pulsacion {
+            0% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.1);
+            }
+
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        .particula {
+            position: absolute;
+            border-radius: 50%;
+            opacity: 0;
+            mix-blend-mode: screen; /* Importante para el efecto de brillo */
+            animation: explosion var(--duracion) ease-out forwards, brillo 0.3s linear infinite alternate, desaparecer 0.5s ease-in forwards;
+        }
+
+        @keyframes explosion {
+            0% {
+                opacity: 1;
+                transform: translate(0, 0) scale(0.2);
+            }
+
+            50% {
+                opacity: 1;
+                transform: translate(var(--dx), var(--dy)) scale(1.8);
+            }
+
+            100% {
+                opacity: 0;
+                transform: translate(var(--dx) * 1.2, var(--dy) * 1.2) scale(2.5); /* Mayor desplazamiento y escala */
+            }
+        }
+
+        @keyframes brillo {
+            0% {
+                opacity: 0.8;
+            }
+
+            100% {
+                opacity: 0.3;
+            }
+        }
+
+        @keyframes desaparecer {
+            from {
+                opacity: 0.3;
+            }
+
+            to {
+                opacity: 0;
+            }
+        }
+
+        .creditos {
+            position: fixed;
+            bottom: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 0.7em;
+            color: rgba(255, 51, 51, 0.6);
+            z-index: 10;
+        }
+
+        .derechos {
+            position: fixed;
+            bottom: 3px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 0.6em;
+            color: rgba(255, 255, 255, 0.4);
+            z-index: 10;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>¡Feliz Año Nuevo!</h1>
+    <div class="mensaje-extra">Mi Amor ❤️</div>
+    <div class="derechos">Derechos Reservados Isamar Pedroza</div>
+    <audio autoplay loop>
+        <source src="Andrés Cepeda - Por El Resto De Mi Vida (Video Oficial).mp3" type="audio/mpeg">
+        Tu navegador no soporta la reproducción de audio.
+    </audio>
+
+    <script>
+        function crearFuegoArtificial() {
+            const numParticulas = Math.floor(Math.random() * 200 + 100);
+            const x = Math.random() * window.innerWidth;
+            const y = Math.random() * window.innerHeight * 0.7;
+
+            const coloresVivos = [
+                '#FF69B4', '#FF1493', '#DC143C', '#FFB6C1', '#FFA07A',
+                '#FF6347', '#EE82EE', '#DA70D6', '#9370DB', '#FFC0CB', '#F08080',
+                '#FFFF00', '#ADFF2F', '#00FF00', '#00FFFF', '#00BFFF', '#1E90FF',
+                'rgba(255, 105, 180, 0.8)', 'rgba(255, 20, 147, 0.8)', 'rgba(220, 20, 60, 0.8)', 'rgba(255, 182, 193, 0.8)'
+            ];
+
+            for (let i = 0; i < numParticulas; i++) {
+                const particula = document.createElement('div');
+                particula.className = 'particula';
+                document.body.appendChild(particula);
+
+                const angulo = Math.random() * 360;
+                const velocidad = Math.random() * 300 + 200;
+                const dx = Math.cos(angulo * Math.PI / 180) * velocidad;
+                const dy = Math.sin(angulo * Math.PI / 180) * velocidad;
+                const duracion = Math.random() * 0.5 + 1;
+
+                particula.style.setProperty('--dx', dx + 'px');
+                particula.style.setProperty('--dy', dy + 'px');
+                particula.style.setProperty('--duracion', duracion + 's');
+
+                const tamanio = Math.random() * 10 + 5;
+                particula.style.width = tamanio + 'px';
+                particula.style.height = tamanio + 'px';
+                particula.style.backgroundColor = coloresVivos[Math.floor(Math.random() * coloresVivos.length)];
+                particula.style.left = x + 'px';
+                particula.style.top = y + 'px';
+                particula.style.filter = `blur(${Math.random() * 2}px)`;
+
+                setTimeout(() => {
+                    particula.remove();
+                }, duracion * 1000 + 500); // Ajuste del tiempo de eliminación
+            }
+        }
+
+        setInterval(crearFuegoArtificial, 200);
+    </script>
+
+</body>
+
+</html>
